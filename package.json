@@ -1,6 +1,6 @@
 {
 	"name": "@exact-realty/rfc8188",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
 	"type": "module",
 	"main": "dist/index.cjs",
@@ -58,9 +58,6 @@
 		"prettier": "^3.2.5",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3"
-	},
-	"peerDependencies": {
-		"aws4fetch": "^1.0.17"
 	},
 	"repository": {
 		"type": "git",
