@@ -1,0 +1,86 @@
+{
+	"name": "@exact-realty/rfc8188",
+	"version": "1.0.0",
+	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "./dist/index.mjs",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./decrypt": {
+			"import": {
+				"types": "./dist/exports/decrypt.d.ts",
+				"default": "./dist/decrypt.mjs"
+			},
+			"require": {
+				"types": "./dist/exports/decrypt.d.ts",
+				"default": "./dist/decrypt.js"
+			}
+		},
+		"./encodings": {
+			"import": {
+				"types": "./dist/exports/encodings.d.ts",
+				"default": "./dist/encodings.mjs"
+			},
+			"require": {
+				"types": "./dist/exports/encodings.d.ts",
+				"default": "./dist/encodings.js"
+			}
+		},
+		"./encrypt": {
+			"import": {
+				"types": "./dist/exports/encrypt.d.ts",
+				"default": "./dist/encrypt.mjs"
+			},
+			"require": {
+				"types": "./dist/exports/encrypt.d.ts",
+				"default": "./dist/encrypt.js"
+			}
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.17",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
+		"esbuild": "^0.20.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.3",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
+	},
+	"peerDependencies": {
+		"aws4fetch": "^1.0.17"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Exact-Realty/ts-rfc8188.git"
+	},
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+		"lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+		"build": "tsc --emitDeclarationOnly --declarationMap --declaration && node esbuild.mjs",
+		"test": "node --loader ts-node/esm test/index.test.ts",
+		"prepack": "npm run build",
+		"prepublishOnly": "npm test && npm run lint",
+		"preversion": "npm run lint",
+		"version": "npm run lint && git add -A src",
+		"postversion": "git push && git push --tags"
+	},
+	"author": "Exact Realty Limited",
+	"license": "ISC",
+	"keywords": []
+}
