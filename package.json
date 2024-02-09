@@ -3,7 +3,7 @@
 	"version": "1.0.1",
 	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
 	"type": "module",
-	"main": "dist/index.js",
+	"main": "dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"exports": {
 		".": {
@@ -13,7 +13,7 @@
 			},
 			"require": {
 				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
+				"default": "./dist/index.cjs"
 			}
 		},
 		"./decrypt": {
@@ -23,7 +23,7 @@
 			},
 			"require": {
 				"types": "./dist/exports/decrypt.d.ts",
-				"default": "./dist/decrypt.js"
+				"default": "./dist/decrypt.cjs"
 			}
 		},
 		"./encodings": {
@@ -33,7 +33,7 @@
 			},
 			"require": {
 				"types": "./dist/exports/encodings.d.ts",
-				"default": "./dist/encodings.js"
+				"default": "./dist/encodings.cjs"
 			}
 		},
 		"./encrypt": {
@@ -43,7 +43,7 @@
 			},
 			"require": {
 				"types": "./dist/exports/encrypt.d.ts",
-				"default": "./dist/encrypt.js"
+				"default": "./dist/encrypt.cjs"
 			}
 		}
 	},
@@ -82,5 +82,5 @@
 	},
 	"author": "Exact Realty Limited",
 	"license": "ISC",
-	"keywords": []
+	"keywords": ["rfc8188", "aes128gcm"]
 }

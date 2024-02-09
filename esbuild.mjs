@@ -41,7 +41,7 @@ await Promise.resolve(
 			...buildOptionsBase,
 			format,
 			outExtension: {
-				'.js': format === 'esm' ? '.mjs' : '.js',
+				'.js': format === 'esm' ? '.mjs' : '.cjs',
 			},
 		});
 	}),
