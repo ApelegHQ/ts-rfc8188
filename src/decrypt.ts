@@ -40,6 +40,7 @@ const DECRYPT_STATE = {
  *   be decrypted (ciphertext).
  * @param lookupIKM - A function that looks up the Initial Keying Material (IKM)
  *   based on the provided key ID.
+ * @param maxRecordSize - The maximum record size allowed.
  * @returns A readable stream containing the decrypted data (plaintext).
  * @throws Throws if the record size is invalid or the decrypted data are
  *   otherwise malformed.
@@ -50,6 +51,7 @@ const decrypt = (
 	lookupIKM: (
 		keyId: ArrayBufferLike,
 	) => ArrayBufferLike | Promise<ArrayBufferLike>,
+	maxRecordSize?: number | null | undefined,
 ): ReadableStream<ArrayBufferLike> => {
 	const salt = new Uint8Array(SALT_LENGTH);
 
@@ -107,7 +109,13 @@ const decrypt = (
 						if (pos === 4) {
 							if (
 								recordSize <= encoding.tag_length + 1 ||
-								recordSize > MAX_RECORD_SIZE
+								recordSize >
+									(maxRecordSize == null
+										? MAX_RECORD_SIZE
+										: Math.min(
+												MAX_RECORD_SIZE,
+												maxRecordSize,
+											))
 							) {
 								throw new RangeError(
 									'Invalid record size: ' + recordSize,

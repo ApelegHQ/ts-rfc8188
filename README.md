@@ -38,6 +38,13 @@ yarn add @exact-realty/rfc8188
 ```javascript
 import { encodings, decrypt } from '@exact-realty/rfc8188';
 
+// Maximum permissible record size when decrypting. Because the decrypted data
+// are buffered until a record is full, not limiting it can result in a very
+// large memory allocation (4 GiB) depending on the incoming data.
+// If this parameter is not provided, no limit is used. Otherwise, incoming data
+// claiming to have records larger than this value will be rejected with.
+const maxRecordSize = Infinity;
+
 // Provide a function to lookup Initial Keying Material (IKM)
 const lookupIKM = async (keyId) => {
   // Your logic to lookup IKM
@@ -52,6 +59,7 @@ const decryptedDataSteam = decrypt(
     encodings.aes128gcm,
     dataStreamToDecrypt,
     lookupIKM,
+    maxRecordSize, // optional
 );
 
 // Handle decrypted data stream
@@ -86,7 +94,7 @@ const encryptedDataStream = await encrypt(
     recordSize,
     keyId,
     IKM,
-    salt,
+    salt, // optional
 );
 
 // Handle encrypted data stream

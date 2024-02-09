@@ -93,7 +93,33 @@ describe('RFC 8188', () => {
 		);
 	});
 
-	it('can encrypt and decrypt files', async function () {
+	it('Decryption max record size', async function () {
+		const data = Buffer.from(
+			'uNCkWiNYzKTnBN9ji3-qWAAAABkCYTHOG8chz_gnvgOqdGYovxyjuqRyJFjEDyoF' +
+				'1Fvkj6hQPdPHI51OEUKEpgz3SsLWIqS_uA',
+			'base64url',
+		);
+		const encryptedStream = new Response(data).body;
+		assert.ok(!!encryptedStream);
+		const decryptedStream = decrypt(
+			encodings.aes128gcm,
+			encryptedStream,
+			(keyId) => {
+				assert.equal(keyId.byteLength, 2);
+				assert.equal(Buffer.from(keyId).toString(), 'a1');
+				return Buffer.from('BO3ZVPxUlnLORbVGMpbT1Q', 'base64url');
+			},
+			18,
+		);
+		await assert.rejects(
+			new Response(
+				ArrayBufferToUint8ArrayStream(decryptedStream),
+			).arrayBuffer(),
+			{ name: 'RangeError', message: 'Invalid record size: 25' },
+		);
+	});
+
+	it('can encrypt and decrypt data', async function () {
 		for (let keyId_length = 0; keyId_length < 256; keyId_length += 16) {
 			const keyId = new Uint8Array(keyId_length);
 			globalThis.crypto.getRandomValues(keyId);
