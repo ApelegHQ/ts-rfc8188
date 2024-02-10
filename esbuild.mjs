@@ -16,6 +16,8 @@
  */
 
 import esbuild from 'esbuild';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 const buildOptionsBase = {
 	entryPoints: [
@@ -35,7 +37,7 @@ const buildOptionsBase = {
 
 const formats = ['cjs', 'esm'];
 
-await Promise.resolve(
+await Promise.all(
 	formats.map((format) => {
 		return esbuild.build({
 			...buildOptionsBase,
@@ -46,3 +48,29 @@ await Promise.resolve(
 		});
 	}),
 );
+
+const cjsDeclarationFiles = async (directoryPath) => {
+	const entries = await readdir(directoryPath, {
+		withFileTypes: true,
+		recursive: true,
+	});
+
+	await Promise.all(
+		entries
+			.filter((entry) => {
+				return entry.isFile() && entry.name.endsWith('.d.ts');
+			})
+			.map(async (file) => {
+				const name = join(file.path, file.name);
+				const newName = name.slice(0, -2) + 'cts';
+
+				const contents = await readFile(name, { encoding: 'utf-8' });
+				await writeFile(
+					newName,
+					contents.replace(/(?<=\.)js(?=['"])/g, 'cjs'),
+				);
+			}),
+	);
+};
+
+await cjsDeclarationFiles('dist');

@@ -1,6 +1,6 @@
 {
 	"name": "@exact-realty/rfc8188",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
 	"type": "module",
 	"main": "dist/index.cjs",
@@ -12,7 +12,7 @@
 				"default": "./dist/index.mjs"
 			},
 			"require": {
-				"types": "./dist/index.d.ts",
+				"types": "./dist/index.d.cts",
 				"default": "./dist/index.cjs"
 			}
 		},
@@ -22,7 +22,7 @@
 				"default": "./dist/decrypt.mjs"
 			},
 			"require": {
-				"types": "./dist/exports/decrypt.d.ts",
+				"types": "./dist/exports/decrypt.d.cts",
 				"default": "./dist/decrypt.cjs"
 			}
 		},
@@ -32,7 +32,7 @@
 				"default": "./dist/encodings.mjs"
 			},
 			"require": {
-				"types": "./dist/exports/encodings.d.ts",
+				"types": "./dist/exports/encodings.d.cts",
 				"default": "./dist/encodings.cjs"
 			}
 		},
@@ -42,7 +42,7 @@
 				"default": "./dist/encrypt.mjs"
 			},
 			"require": {
-				"types": "./dist/exports/encrypt.d.ts",
+				"types": "./dist/exports/encrypt.d.cts",
 				"default": "./dist/encrypt.cjs"
 			}
 		}
