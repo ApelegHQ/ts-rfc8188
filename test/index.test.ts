@@ -37,6 +37,22 @@ const ArrayBufferToUint8ArrayStream = (s: ReadableStream<ArrayBufferLike>) =>
 		}),
 	);
 
+const bufferToStream = (buf: Uint8Array) => {
+	let pos = 0;
+	return new ReadableStream({
+		pull(controller) {
+			if (pos === buf.byteLength) {
+				controller.close();
+				return;
+			}
+			const chunkSize =
+				1 + (((0, Math.random)() * (buf.byteLength - pos)) | 0);
+			controller.enqueue(buf.subarray(pos, pos + chunkSize));
+			pos += chunkSize;
+		},
+	});
+};
+
 describe('RFC 8188', () => {
 	it('RFC 8188 § 3.1', async function () {
 		const data = Buffer.from(
@@ -140,7 +156,7 @@ describe('RFC 8188', () => {
 						);
 						globalThis.crypto.getRandomValues(key);
 
-						const sourceStream = new Response(data).body;
+						const sourceStream = bufferToStream(data);
 						assert.ok(!!sourceStream);
 						const encryptedStream = await encrypt(
 							encoding,

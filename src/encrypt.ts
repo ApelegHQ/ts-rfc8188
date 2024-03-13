@@ -71,7 +71,7 @@ const encrypt = async (
 		throw new RangeError('Invald salt length: ' + salt.byteLength);
 	}
 
-	const segmentSize = recordSize - encoding.block_size - 1;
+	const segmentSize = recordSize - encoding.tag_length - 1;
 	const saltBuf = salt
 		? sharedBufferToUint8Array(salt)
 		: generateRandomSalt();
@@ -130,8 +130,8 @@ const encrypt = async (
 					const nonce = deriveNonce.next();
 					const iv = nonce.value;
 					const record = new Uint8Array(segmentSize + 1);
-					record.set(subArray);
-					record[subArray.byteLength] = PADDING_DELIMITER_NONTERMINAL;
+					record.set(buffer.subarray(0, pos));
+					record[pos] = PADDING_DELIMITER_NONTERMINAL;
 					const result = await globalThis.crypto.subtle.encrypt(
 						{
 							['name']: encoding.params['name'],
