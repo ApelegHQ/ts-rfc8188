@@ -5,7 +5,7 @@
  [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Exact-Realty_ts-rfc8188&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Exact-Realty_ts-rfc8188)
  [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Exact-Realty_ts-rfc8188&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Exact-Realty_ts-rfc8188)
  [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Exact-Realty_ts-rfc8188&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Exact-Realty_ts-rfc8188)
- ![NPM Downloads](https://img.shields.io/npm/dw/@exact-realty/rfc8188?style=flat-square)
+ ![NPM Downloads](https://img.shields.io/npm/dw/@apeleghq/rfc8188?style=flat-square)
 
 
 ---
@@ -22,13 +22,13 @@
 To install the package, you can use npm or yarn:
 
 ```sh
-npm install @exact-realty/rfc8188
+npm install @apeleghq/rfc8188
 ```
 
 or
 
 ```sh
-yarn add @exact-realty/rfc8188
+yarn add @apeleghq/rfc8188
 ```
 
 ### 📚 Usage
@@ -36,7 +36,7 @@ yarn add @exact-realty/rfc8188
 #### Decrypting Data
 
 ```javascript
-import { encodings, decrypt } from '@exact-realty/rfc8188';
+import { encodings, decrypt } from '@apeleghq/rfc8188';
 
 // Maximum permissible record size when decrypting. Because the decrypted data
 // are buffered until a record is full, not limiting it can result in a very
@@ -69,7 +69,7 @@ const decryptedDataSteam = decrypt(
 #### Encrypting Data
 
 ```javascript
-import { encodings, encrypt } from '@exact-realty/rfc8188';
+import { encodings, encrypt } from '@apeleghq/rfc8188';
 
 // Your readable stream with plaintext
 const dataStreamToEncrypt = new ReadableStream();

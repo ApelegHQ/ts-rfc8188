@@ -1,6 +1,6 @@
 {
-	"name": "@exact-realty/rfc8188",
-	"version": "1.0.6",
+	"name": "@apeleghq/rfc8188",
+	"version": "1.0.7",
 	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
 	"type": "module",
 	"main": "dist/index.cjs",
@@ -48,20 +48,20 @@
 		}
 	},
 	"devDependencies": {
-		"@types/node": "^20.12.12",
-		"@typescript-eslint/eslint-plugin": "^7.10.0",
-		"@typescript-eslint/parser": "^7.10.0",
-		"esbuild": "^0.21.3",
+		"@types/node": "^22.5.4",
+		"@typescript-eslint/eslint-plugin": "^8.5.0",
+		"@typescript-eslint/parser": "^8.5.0",
+		"esbuild": "^0.23.1",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-prettier": "^5.1.3",
-		"prettier": "^3.2.5",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.3.3",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.4.5"
+		"typescript": "^5.6.2"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Exact-Realty/ts-rfc8188.git"
+		"url": "git+https://github.com/ApelegHQ/ts-rfc8188.git"
 	},
 	"files": [
 		"dist/**/*"
@@ -77,7 +77,7 @@
 		"version": "npm run lint && git add -A src",
 		"postversion": "git push && git push --tags"
 	},
-	"author": "Exact Realty Limited",
+	"author": "Apeleg Limited",
 	"license": "ISC",
 	"keywords": ["encrypted content encoding", "encrypted-content-encoding", "rfc8188", "aes128gcm"]
 }
