@@ -15,10 +15,15 @@
 
 export type TEncoding = {
 	params: AesKeyGenParams;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	cek_info: ArrayBufferLike;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	nonce_info: ArrayBufferLike;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	block_size: number;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	tag_length: number;
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	nonce_length: number;
 };
 
