@@ -48,16 +48,14 @@ const DECRYPT_STATE = {
 const decrypt = (
 	encoding: Readonly<TEncoding>,
 	data: Readonly<ReadableStream<Readonly<BufferSource>>>,
-	lookupIKM: (
-		keyId: ArrayBufferLike,
-	) => ArrayBufferLike | Promise<ArrayBufferLike>,
+	lookupIKM: (keyId: BufferSource) => BufferSource | Promise<BufferSource>,
 	maxRecordSize?: number | null | undefined,
 ): ReadableStream<ArrayBufferLike> => {
 	const salt = new Uint8Array(SALT_LENGTH);
 
-	let buffer: Uint8Array;
+	let buffer: Uint8Array<ArrayBuffer>;
 	let CEK: CryptoKey;
-	let deriveNonce: Generator<ArrayBuffer, never, unknown>;
+	let deriveNonce: Generator<BufferSource, never, unknown>;
 	let recordSize: number = 0;
 	// Position within `buffer`
 	let pos = 0;

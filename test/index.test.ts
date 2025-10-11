@@ -16,6 +16,9 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { encodings, decrypt, encrypt } from '../src/index.js';
+import sharedBufferToUint8Array from '../src/lib/sharedBufferToUint8Array.js';
+
+const b = (bs: BufferSource) => Buffer.from(sharedBufferToUint8Array(bs));
 
 const ArrayBufferToUint8ArrayStream = (s: ReadableStream<ArrayBufferLike>) =>
 	s.pipeThrough(
@@ -94,7 +97,7 @@ describe('RFC 8188', () => {
 			encryptedStream,
 			(keyId) => {
 				assert.equal(keyId.byteLength, 2);
-				assert.equal(Buffer.from(keyId).toString(), 'a1');
+				assert.equal(b(keyId).toString(), 'a1');
 				return Buffer.from('BO3ZVPxUlnLORbVGMpbT1Q', 'base64url');
 			},
 		);
@@ -122,7 +125,7 @@ describe('RFC 8188', () => {
 			encryptedStream,
 			(keyId) => {
 				assert.equal(keyId.byteLength, 2);
-				assert.equal(Buffer.from(keyId).toString(), 'a1');
+				assert.equal(b(keyId).toString(), 'a1');
 				return Buffer.from('BO3ZVPxUlnLORbVGMpbT1Q', 'base64url');
 			},
 			18,
@@ -190,10 +193,7 @@ describe('RFC 8188', () => {
 							encryptedStream,
 							(pKeyId) => {
 								assert.equal(pKeyId.byteLength, keyId_length);
-								assert.deepEqual(
-									Buffer.from(pKeyId),
-									Buffer.from(keyId),
-								);
+								assert.deepEqual(b(pKeyId), Buffer.from(keyId));
 								return key;
 							},
 						);

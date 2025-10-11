@@ -13,14 +13,31 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-const sharedBufferToUint8Array = (buf: AllowSharedBufferSource): Uint8Array => {
+const sharedBufferToUint8Array = <
+	TB extends AllowSharedBufferSource,
+	TL extends boolean,
+	TR extends TB extends ArrayBuffer
+		? ArrayBuffer
+		: TL extends true
+			? ArrayBuffer
+			: TB extends ArrayBufferView<infer P>
+				? P
+				: never,
+>(
+	buf: TB,
+	local?: TL,
+): Uint8Array<TR> => {
 	if (ArrayBuffer.isView(buf)) {
-		return new Uint8Array(buf.buffer).subarray(
+		const bufCopy =
+			!local || buf.buffer instanceof ArrayBuffer
+				? (buf.buffer as TR)
+				: (buf.buffer.slice() as TR);
+		return new Uint8Array(bufCopy).subarray(
 			buf.byteOffset,
 			buf.byteOffset + buf.byteLength,
 		);
 	}
-	return new Uint8Array(buf);
+	return new Uint8Array(buf) as Uint8Array<TR>;
 };
 
 export default sharedBufferToUint8Array;

@@ -1,6 +1,6 @@
 {
 	"name": "@apeleghq/rfc8188",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "An implementation of RFC 8188 (encrypted content-encoding for HTTP)",
 	"type": "module",
 	"main": "dist/index.cjs",
@@ -50,18 +50,18 @@
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3.3.1",
-		"@eslint/js": "^9.23.0",
-		"@types/node": "^22.13.11",
-		"@typescript-eslint/eslint-plugin": "^8.27.0",
-		"@typescript-eslint/parser": "^8.27.0",
-		"esbuild": "^0.25.1",
-		"eslint": "^9.23.0",
-		"eslint-config-prettier": "^10.1.1",
-		"eslint-plugin-prettier": "^5.2.3",
-		"globals": "^16.0.0",
-		"prettier": "^3.5.3",
+		"@eslint/js": "^9.37.0",
+		"@types/node": "^24.7.2",
+		"@typescript-eslint/eslint-plugin": "^8.46.0",
+		"@typescript-eslint/parser": "^8.46.0",
+		"esbuild": "^0.25.10",
+		"eslint": "^9.37.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"globals": "^16.4.0",
+		"prettier": "^3.6.2",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.8.2"
+		"typescript": "^5.9.3"
 	},
 	"repository": {
 		"type": "git",

@@ -30,11 +30,11 @@ import type { TEncoding } from './encodings.js';
  */
 const init = async (
 	encoding: TEncoding,
-	IKM: ArrayBufferLike,
-	salt: ArrayBufferLike,
+	IKM: BufferSource,
+	salt: BufferSource,
 	keyUsages: KeyUsage[],
 ): Promise<
-	[CEK: CryptoKey, deriveNonce: Generator<ArrayBuffer, never, never>]
+	[CEK: CryptoKey, deriveNonce: Generator<BufferSource, never, never>]
 > => {
 	const PRK = await globalThis.crypto.subtle.importKey(
 		'raw',
@@ -71,7 +71,7 @@ const init = async (
 	// Devive a nonce that is (bits XOR sequence)
 	// Currently, only nonces that are composed of whole 32-bit words
 	// are supported.
-	const deriveNonce = function* (): Generator<ArrayBuffer, never, never> {
+	const deriveNonce = function* (): Generator<BufferSource, never, never> {
 		const sequence = new ArrayBuffer(encoding.nonce_length);
 		const sequenceDataView = new DataView(sequence);
 		const sequenceBuffer = new Uint8Array(sequence);

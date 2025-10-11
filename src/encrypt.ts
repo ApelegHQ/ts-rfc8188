@@ -55,10 +55,10 @@ const encrypt = async (
 	encoding: Readonly<TEncoding>,
 	data: Readonly<ReadableStream<Readonly<BufferSource>>>,
 	recordSize: number,
-	keyId: Readonly<ArrayBufferLike>,
-	IKM: Readonly<ArrayBufferLike>,
-	salt?: Readonly<ArrayBufferLike> | null | undefined,
-): Promise<ReadableStream<ArrayBufferLike>> => {
+	keyId: Readonly<BufferSource>,
+	IKM: Readonly<BufferSource>,
+	salt?: Readonly<AllowSharedBufferSource> | null | undefined,
+): Promise<ReadableStream<BufferSource>> => {
 	if (recordSize <= encoding.tag_length + 1 || recordSize > MAX_RECORD_SIZE) {
 		throw new RangeError('Invalid record size: ' + recordSize);
 	}
@@ -73,7 +73,7 @@ const encrypt = async (
 
 	const segmentSize = recordSize - encoding.tag_length - 1;
 	const saltBuf = salt
-		? sharedBufferToUint8Array(salt)
+		? sharedBufferToUint8Array(salt, true)
 		: generateRandomSalt();
 
 	const [CEK, deriveNonce] = await init(encoding, IKM, saltBuf, ['encrypt']);
@@ -83,7 +83,7 @@ const encrypt = async (
 	// Position within `buffer`
 	let pos = 0;
 
-	const result = new TransformStream<BufferSource, ArrayBufferLike>({
+	const result = new TransformStream<BufferSource, BufferSource>({
 		['start']: (controller) => {
 			// As the stream gets started, the header can be pushed immediately
 			// The header contains:
